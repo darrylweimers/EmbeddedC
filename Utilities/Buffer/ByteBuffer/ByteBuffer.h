@@ -5,7 +5,7 @@
 #ifndef BYTEBUFFER_H_
 #define BYTEBUFFER_H_
 
-#include "compiler.h"
+#include "GlobalDef.h"
 
 /* ********************************************************************
  * DEFINES
