@@ -22,7 +22,7 @@ typedef signed long long S64;
 
 typedef enum {FALSE = 0, TRUE = 1} bool;
 
-typedef enum {RESET = 0, SET = 1} FlagState;
+typedef enum {RESET = 0, SET = 1} FlagState, BitState, BitAction;
 
 typedef enum {DISABLE = 0, ENABLE = 1} EnableState;
 
