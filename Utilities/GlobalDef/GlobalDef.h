@@ -20,10 +20,13 @@ typedef signed long S32;
 typedef signed long long S64;
 
 
-typedef enum {FALSE = 0, TRUE = !FALSE} bool;
+typedef enum {FALSE = 0, TRUE = 1} bool;
 
-typedef enum {RESET = 0, SET = !RESET} FlagState;
+typedef enum {RESET = 0, SET = 1} FlagState;
 
-typedef enum {DISABLE = 0, ENABLE = !DISABLE} EnableState;
+typedef enum {DISABLE = 0, ENABLE = 1} EnableState;
 
+typedef enum {FAIL = 0, PASS = 1} ResultState;
+
+ 
 #endif
