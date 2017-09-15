@@ -11,7 +11,7 @@
  * DEFINES
  * *********************************************************************/
 
-#define MAX_NUMBER_OF_MODULES  8					// TODO: MATCH VALUE WITH SETTING UNDER PLATFORM
+#define MAX_NUMBER_OF_MODULES  8					// TODO: define maximum of software timer
 /* ********************************************************************
  * TYPE
  * *********************************************************************/
