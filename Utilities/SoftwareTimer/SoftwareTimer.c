@@ -27,7 +27,7 @@ static void SoftwareTimer_DefautSetting(SoftwareTimer* softwareTimer)
 {
 	U8 i;
 
-	for(i = 0; i < MAX_NUMBER_OF_MODULES; i++)
+	for(i = 0; i < TOTAL_NUMBER_OF_SOFWARE_TIMER; i++)
 	{
 		softwareTimer->enabled[i] = FALSE;
 		softwareTimer->count[i] = 0;
@@ -137,8 +137,8 @@ void SoftwareTimer_DriverInit(SoftwareTimer* softwareTimer, U8 TotalNumberOfModu
 
 		SoftwareTimer_DefautSetting(softwareTimer);
 
-		if  (TotalNumberOfModule > MAX_NUMBER_OF_MODULES)
-			softwareTimer->numberOfModule = MAX_NUMBER_OF_MODULES;
+		if  (TotalNumberOfModule > TOTAL_NUMBER_OF_SOFWARE_TIMER)
+			softwareTimer->numberOfModule = TOTAL_NUMBER_OF_SOFWARE_TIMER;
 		else
 			softwareTimer->numberOfModule = TotalNumberOfModule;
 
