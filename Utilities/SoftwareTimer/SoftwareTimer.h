@@ -6,12 +6,14 @@
 #define _SOFTWARETIMER_H_
 
 #include "GlobalDef.h"
+#include "ADSTypes.h"
 
 /* ********************************************************************
- * DEFINES
+ * DEFINE
  * *********************************************************************/
 
-#define MAX_NUMBER_OF_MODULES  8					// TODO: define maximum of software timer
+#define TOTAL_NUMBER_OF_SOFWARE_TIMER					8
+
 /* ********************************************************************
  * TYPE
  * *********************************************************************/
@@ -26,10 +28,10 @@ typedef enum
 
 typedef struct
 {
-	volatile bool enabled[MAX_NUMBER_OF_MODULES];
-	volatile U32 count[MAX_NUMBER_OF_MODULES];
-	U32 max[MAX_NUMBER_OF_MODULES];
-	SoftwareTimer_Type type[MAX_NUMBER_OF_MODULES];
+	volatile bool enabled[TOTAL_NUMBER_OF_SOFWARE_TIMER];
+	volatile U32 count[TOTAL_NUMBER_OF_SOFWARE_TIMER];
+	U32 max[TOTAL_NUMBER_OF_SOFWARE_TIMER];
+	SoftwareTimer_Type type[TOTAL_NUMBER_OF_SOFWARE_TIMER];
 	U8 totalModuleEnabled;
 	bool driverEnabled;
 	Func_Ptr_Enable driverEnable;
