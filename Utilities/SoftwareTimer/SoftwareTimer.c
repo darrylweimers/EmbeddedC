@@ -2,8 +2,9 @@
 //	SoftwareTimer.c
 //***********************************************
 
-#include "SoftwareTimer.h"
+// Note:		1. Requires a micro-controller timer set to 1 nanosecond, microseconds, or milliseconds
 
+#include "SoftwareTimer.h"
 
 /* ********************************************************************
  * PRIVATE FUNCTION DECLARATIONS
@@ -19,7 +20,9 @@ static void SoftwareTimer_DefautSetting(SoftwareTimer* softwareTimer);
  * PRIVATE FUNCTION DEFINITIONS
  * *********************************************************************/
 
-
+// Brief:		Set all software timer to default setting
+// Param1:		Software timer properties
+// Return:		Void
 static void SoftwareTimer_DefautSetting(SoftwareTimer* softwareTimer)
 {
 	U8 i;
@@ -35,8 +38,10 @@ static void SoftwareTimer_DefautSetting(SoftwareTimer* softwareTimer)
 	softwareTimer->totalModuleEnabled = 0;
 }
 
-
-
+// Brief:		Brief
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 static bool ModuleExists(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (Module < softwareTimer->numberOfModule)
@@ -45,34 +50,20 @@ static bool ModuleExists(SoftwareTimer* softwareTimer, U8 Module)
 	return FALSE;
 }
 
-/*
- *
- * @brief
- * Add Timer counter Module period to software counter count value
- *
- * @param
- * Provide Software counter associated number
- *
- * @return
- * void
- */
+// Brief:		Increment all enabled software counter
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 static void CounterIncrement(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (softwareTimer->enabled[Module] == TRUE)
 		softwareTimer->count[Module] += 1;		// increment by 1 us or 1 ms
 }
 
-/*
- *
- * @brief
- * Enable software counter if it has been disabled. And, enable Timer counter module if at least one software counter has been enabled.
- *
- * @param counterNumber
- * Provide Software counter associated number
- *
- * @return
- * void
- */
+// Brief:		Eanble software counter and micro-controller timer module if it is not enabled
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 static void CounterEnable(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (ModuleExists(softwareTimer, Module) && softwareTimer->enabled[Module] == FALSE)
@@ -85,16 +76,10 @@ static void CounterEnable(SoftwareTimer* softwareTimer, U8 Module)
 	}
 }
 
-/*
- * @brief
- * Disable software counter if it has been enabled. And, disable Timer counter module if all software counter has been disabled.
- *
- * @param
- * Provide Software counter associated number
- *
- * @return
- * void
- */
+// Brief:		Disable software counter and micro-controller timer module if all software counter is disabled
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 static void CounterDisable(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (ModuleExists(softwareTimer, Module) && softwareTimer->enabled[Module] == TRUE)
@@ -110,16 +95,10 @@ static void CounterDisable(SoftwareTimer* softwareTimer, U8 Module)
  * PUBLIC FUNCTIONS DEFINITIONS
  * *********************************************************************/
 
-/*
- * @brief
- * Determine if a software counter reaches its predefined max duration
- *
- * @param
- * Provide the software counter to commit the sequence of tasks
- *
- * @return
- * TRUE (software counter reaches its predefined max)/ FALSE
- */
+// Brief:		Determine if a software counter reaches its predefined max duration
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		TRUE (software counter reaches its predefined max)/ FALSE
 bool SoftwareTimer_IsTriggered(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (ModuleExists(softwareTimer, Module) && softwareTimer->driverEnabled && softwareTimer->enabled[Module] == TRUE)
@@ -144,12 +123,17 @@ bool SoftwareTimer_IsTriggered(SoftwareTimer* softwareTimer, U8 Module)
 	return FALSE;
 }
 
+// Brief:		Configure using platforms setting
+// Param1:		Software timer properties
+// Param2:		Total number of software timer defined by user
+// Param3:		Function to configure micro-controller timer module
+// Param4:		Function to enable/disable micro-controller timer module
+// Return:		Void
 void SoftwareTimer_DriverInit(SoftwareTimer* softwareTimer, U8 TotalNumberOfModule, Func_Ptr_Void DriverInit,  Func_Ptr_Enable DriverEnable)
 {
 	// Allow user to call this function once with execution
 	if (softwareTimer->driverEnabled == FALSE)
 	{
-
 
 		SoftwareTimer_DefautSetting(softwareTimer);
 
@@ -172,17 +156,11 @@ void SoftwareTimer_DriverInit(SoftwareTimer* softwareTimer, U8 TotalNumberOfModu
 	}
 }
 
-/*!
- *
- * @brief
- * Enable a software counter associated with the input number. And, set the count value to zero (default value)
- *
- * @param
- * Provide the software counter to commit the sequence of tasks
- *
- * @return
- * void
- */
+
+// Brief:		Enable a software counter
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 void SoftwareTimer_Start(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (ModuleExists(softwareTimer, Module) && softwareTimer->driverEnabled)
@@ -195,39 +173,22 @@ void SoftwareTimer_Start(SoftwareTimer* softwareTimer, U8 Module)
 	}
 }
 
-/*!
- *
- * @brief
- * Disable a software counter associated with the input number
- *
- * @param
- * Provide the software counter to commit the sequence of tasks
- *
- * @return
- * void
- */
+// Brief:		Disable a software counter
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Return:		Void
 void SoftwareTimer_Stop(SoftwareTimer* softwareTimer, U8 Module)
 {
 	if (ModuleExists(softwareTimer, Module) && softwareTimer->driverEnabled && softwareTimer->totalModuleEnabled > 0)
 		CounterDisable(softwareTimer, Module);
 }
 
-/*
- * @brief
- * Initialize a software counter
- *
- * @param
- * Provide the software counter to commit the sequence of tasks
- *
- * @param
- * Set period or duration is milliseconds
- *
- * @param
- * Set Timer type which can be select from: type_Periodic,type_Timeout
- *
- * @return
- * void
- */
+// Brief:		Configure a software timer
+// Param1:		Software timer properties
+// Param2:		Software counter id
+// Param3:		Max count value
+// Param4:		Periodic/Timeout
+// Return:		Void
 void SoftwareTimer_Init(SoftwareTimer* softwareTimer, U8 Module, U32 Max, SoftwareTimer_Type Type)
 {
 	// counter must be initially disabled, if it is has been enabled, second initialization will be omitted
@@ -239,7 +200,10 @@ void SoftwareTimer_Init(SoftwareTimer* softwareTimer, U8 Module, U32 Max, Softwa
 	}
 }
 
-// Call function under TIMx counter interrupt
+// Brief:		Update software timers
+// Param1:		Void
+// Return:		Void
+// Note:		1. Must be call by micro-controller timer ISR
 void SoftwareTimer_InterruptHanlder(SoftwareTimer* softwareTimer)
 {
 	U8 i;
