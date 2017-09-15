@@ -7,19 +7,16 @@
 
 #include "GlobalDef.h"
 
-// REMARK: Timer Driver can only increment by step of 1 (e.g. every 1 ms, us, s , ...)
-
 /* ********************************************************************
  * DEFINES
  * *********************************************************************/
 
-#define MAX_NUMBER_OF_MODULES  8        // TODO: Define the maximum number of software timer 
-
+#define MAX_NUMBER_OF_MODULES  8					// TODO: MATCH VALUE WITH SETTING UNDER PLATFORM
 /* ********************************************************************
  * TYPE
  * *********************************************************************/
 
-// each module can be set to mode: periodic, timeout
+// Each module can be set to mode: periodic, timeout
 typedef enum
 {
 	SoftwareTimer_Type_Null,
