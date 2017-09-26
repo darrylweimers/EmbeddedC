@@ -5,13 +5,6 @@
 #include "ByteBuffer.h"
 
 /* ********************************************************************
- * DEFINES
- * *********************************************************************/
-
-#define TYPE_FRAME_SIZE_LENGTH	4			// Number of bytes use to store frame size
-#define TYPE_CHECK_SUM_LENGTH 	1			// Number of byte use to store check sum value
-
-/* ********************************************************************
  * PRIVATE FUNCTION DECLARATIONS
  * *********************************************************************/
 
